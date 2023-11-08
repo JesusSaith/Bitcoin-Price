@@ -1,0 +1,35 @@
+#manifest
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bitcoin-deployment
+spec:
+  selector:
+    matchLabels:
+      app: bitcoin-server
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: bitcoin-server
+    spec:
+      containers:
+        - name: bitcoin-container
+          #image: gcr.io/tensorflow-serving/resnet
+          image: docker.io/yisucond/bitcoin:latest
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: bitcoin-service
+  name: bitcoin-service
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: bitcoin-server
+  type: LoadBalancer
