@@ -6,7 +6,7 @@ import fastapi
 
 app = fastapi.FastAPI(title='Bitcoin Price Predictor')
 
-model = load(pathlib.Path('model/bitcoin-v4.joblib'))
+model = load(pathlib.Path('model/bitcoin-v10.joblib'))
 
 class BitcoinPricePredictionData(BaseModel):
     open_price: float = 10000
